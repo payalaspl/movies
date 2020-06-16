@@ -7,9 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController  extends AbstractController
 {
-    /**
-     * @Route("/home")
-      */
+   
     public function index()
     {
         
@@ -18,9 +16,6 @@ class HomeController  extends AbstractController
             
         ]);
     }
-    /**
-     * @Route("/home/show/{slug}",name="home_show",requirements={"slug": "about|privacy"})
-      */
     public function show($slug)
     {
         if ($slug == 'about') {

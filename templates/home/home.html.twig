@@ -1,3 +1,7 @@
-<h1>home page</h1>
-<a href="{{path('home_show',{slug:'about'})}}">About Us</a>
-<a href="{{path('home_show',{slug:'privacy'})}}">Privacy Policy</a>
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>home page</h1>
+
+    {% block page_contents %}{% endblock %}
+{% endblock %}

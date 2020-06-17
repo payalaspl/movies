@@ -1,0 +1,19 @@
+@import "~bootstrap";
+body {
+    background-color: lightgray;
+}
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+header{
+	background: #000;
+}
+.navbar-dark .navbar-nav .nav-link{
+	color: #fff ;
+}

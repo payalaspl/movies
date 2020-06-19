@@ -37,8 +37,8 @@ class HomeController  extends AbstractController
                 $entityManager->persist($data);
                 $entityManager->flush();
                 $message = (new \Swift_Message('You Got Mail!'))
-                    ->setFrom($data->getEmail())
-                    ->setTo('payal@aum.bz')
+                    ->setFrom('payal@aum.bz')
+                    ->setTo($data->getEmail())
                     ->setBody($data->getMessage(),'text/plain')
                 ;
                 $mailer->send($message);

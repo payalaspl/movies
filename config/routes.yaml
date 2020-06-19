@@ -5,3 +5,9 @@ home_show:
   path : /{slug}
   controller: App\Controller\HomeController::show
   requirements: {"slug": "about|privacy"}
+contact :
+    path : /contact
+    controller: App\Controller\HomeController::show_contact
+contact_success :
+    path : /contact_success
+    controller : App\Controller\HomeController::contact_submit

@@ -4,21 +4,14 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class LuckyController  extends AbstractController
 {
-    public function number($max)
-    {
-        $number = random_int(0, $max);
-
-        return $this->render('number.html.twig', [
-            'number' => $number,
-        ]);
-    }
+    
     /**
      * @Route("/lucky/maxnumber")
       */
-    public function maxnumber()
+    public function maxnumber(SessionInterface $session)
     {
         $number = random_int(0, 100);
 

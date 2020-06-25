@@ -13,3 +13,6 @@ contact :
 contact_success :
     path : /contact_success
     controller : App\Controller\HomeController::contact_submit
+search :
+  path : /home/search
+  controller : App\Controller\HomeController::search

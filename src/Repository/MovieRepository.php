@@ -30,10 +30,11 @@ class MovieRepository extends ServiceEntityRepository
        //echo ($qb);exit();
         return (new Paginator($qb))->paginate($page);
     }
-    public function findSearch($tag){
+    public function findSearch($search){
          $queryBuilder = $this->createQueryBuilder('m');
          return $queryBuilder
-            ->orWhere('m.name LIKE :'.$tag)
+            ->where('m.name LIKE :search1')
+            ->setParameter('search1', '%'.$search.'%')
             ->orderBy('m.id', 'DESC')
             ->getQuery()
             ->getResult();

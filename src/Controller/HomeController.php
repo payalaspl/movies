@@ -65,10 +65,13 @@ class HomeController  extends AbstractController
         return $this->render('home/msg.html.twig',array('cid'=>$cid,'contact'=>$contact));
     }
     public function search(Request $request,MovieRepository $movies){
-       $tag = $request->query->get('tag');
-        $latestMovie = $movies->findSearch($tag);
-        print_r($latestMovie);exit();
-        return $this->render('home/search.html.twig',array('paginator' => $latestMovie));
+        if ($request->query->has('search')) {
+            $search = $request->query->get('search');
+            $latestMovie = $movies->findSearch($search);
+            //print_r($latestMovie);exit();
+            return $this->render('home/search.html.twig',array('movies' => $latestMovie));
+        }
+        
     }                                                                
 }
 ?>

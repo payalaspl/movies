@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Form\ContactType;
+use App\Form\SearchType;
 use App\Entity\Contact;
 use App\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,13 @@ class HomeController  extends AbstractController
     {
         $this->session = $session;
     }
-    public function index(int $page,MovieRepository $movies)
+    public function index(Request $request,int $page,MovieRepository $movies)
     {
-        $latestMovie = $movies->findLatest($page);
+        $search = null;
+        if ($request->query->has('search')) {
+             $search = $request->query->get('search');
+        }
+        $latestMovie = $movies->findLatest($page,$search);
         return $this->render('home/home.html.twig',array('paginator' => $latestMovie));
     }
     public function show($slug)
@@ -57,7 +62,13 @@ class HomeController  extends AbstractController
     public function contact_submit(){
         $cid = $this->session->get('c_id');
         $contact = $this->getDoctrine()->getRepository(Contact::class)->findAll();
-        return $this->render('home/msg.html.twig',array('cid'=>$cid,'contact'=>$contact));                                    
-    }                                                                     
+        return $this->render('home/msg.html.twig',array('cid'=>$cid,'contact'=>$contact));
+    }
+    public function search(Request $request,MovieRepository $movies){
+       $tag = $request->query->get('tag');
+        $latestMovie = $movies->findSearch($tag);
+        print_r($latestMovie);exit();
+        return $this->render('home/search.html.twig',array('paginator' => $latestMovie));
+    }                                                                
 }
 ?>

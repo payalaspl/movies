@@ -4,9 +4,9 @@ index:
     methods : "GET"
     defaults : {"page": "1"}
 home_show:
-  path : /{slug}
-  controller: App\Controller\HomeController::show
-  requirements: {"slug": "about|privacy"}
+    path : /{slug}
+    controller: App\Controller\HomeController::show
+    requirements: {"slug": "about|privacy"}
 contact :
     path : /contact
     controller: App\Controller\HomeController::show_contact

@@ -2,7 +2,24 @@
 
 {% block content %}
 	{{cid}}
-
+	<table>
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>email</th>
+				<th>action</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for cn in contact %}
+			<tr>
+				<td>{{ cn.name }}</td>
+				<td>{{ cn.email }}</td>
+				<td><a href="">edit</a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
     {% block page_contents %}{% endblock %}
 {% endblock %}
 

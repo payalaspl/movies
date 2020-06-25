@@ -7,7 +7,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
+  background-color: #000;
   color: white;
   text-align: center;
 }
@@ -17,3 +17,26 @@ header{
 .navbar-dark .navbar-nav .nav-link{
 	color: #fff ;
 }
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}

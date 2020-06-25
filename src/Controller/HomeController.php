@@ -2,10 +2,12 @@
 namespace App\Controller;
 use App\Form\ContactType;
 use App\Entity\Contact;
+use App\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\MovieRepository;
 class HomeController  extends AbstractController
 {
     private $session;
@@ -14,9 +16,10 @@ class HomeController  extends AbstractController
     {
         $this->session = $session;
     }
-    public function index()
+    public function index(int $page,MovieRepository $movies)
     {
-        return $this->render('home/home.html.twig');
+        $latestMovie = $movies->findLatest($page);
+        return $this->render('home/home.html.twig',array('paginator' => $latestMovie));
     }
     public function show($slug)
     {
@@ -53,7 +56,8 @@ class HomeController  extends AbstractController
     }
     public function contact_submit(){
         $cid = $this->session->get('c_id');
-        return $this->render('home/msg.html.twig',['cid'=>$cid]);                                    
+        $contact = $this->getDoctrine()->getRepository(Contact::class)->findAll();
+        return $this->render('home/msg.html.twig',array('cid'=>$cid,'contact'=>$contact));                                    
     }                                                                     
 }
 ?>

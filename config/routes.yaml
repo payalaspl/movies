@@ -1,6 +1,8 @@
 index:
-    path: /
+    path: /{page}
     controller: App\Controller\HomeController::index
+    methods : "GET"
+    defaults : {"page": "1"}
 home_show:
   path : /{slug}
   controller: App\Controller\HomeController::show

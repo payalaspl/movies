@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <h1>Register</h1>
+    <h1>Login</h1>
     {% for message in app.flashes('msg') %}
 	    <div class="flash-notice">
 	        {{ message }}
@@ -9,4 +9,5 @@
     {{form(form)}}
     {% block page_contents %}{% endblock %}
 {% endblock %}
+
 

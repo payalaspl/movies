@@ -19,3 +19,6 @@ search :
 register :
     path : /user/register
     controller : App\Controller\UsersController::register
+login :
+    path : /user/login
+    controller : App\Controller\UsersController::login

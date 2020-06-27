@@ -16,3 +16,6 @@ contact_success :
 search :
   path : /home/search
   controller : App\Controller\HomeController::search
+register :
+    path : /user/register
+    controller : App\Controller\UsersController::register

@@ -35,6 +35,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+
     public function checkEmail($email){
          $queryBuilder = $this->createQueryBuilder('u');
          return $queryBuilder
@@ -43,16 +45,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
-    public function checkLogin($email,$password){
-         $queryBuilder = $this->createQueryBuilder('u');
-         return $queryBuilder
-            ->andWhere('u.email = :email')
-            ->andWhere('u.password = :password')
-            ->setParameter('email', $email)
-            ->setParameter('password', $password)
-            ->getQuery()
-            ->getResult();
-    }
+
+
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

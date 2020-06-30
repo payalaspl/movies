@@ -6,6 +6,7 @@ use App\Entity\Movie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Pagination\Paginator;
+
 /**
  * @method Movie|null find($id, $lockMode = null, $lockVersion = null)
  * @method Movie|null findOneBy(array $criteria, array $orderBy = null)
@@ -18,7 +19,7 @@ class MovieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Movie::class);
     }
-    public function findLatest(int $page = 1,$search = null): Paginator
+     public function findLatest(int $page = 1,$search = null): Paginator
     {
         //echo ($search);exit();
         $qb = $this->createQueryBuilder('m')

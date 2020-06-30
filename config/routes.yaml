@@ -11,7 +11,7 @@ contact :
     path : home/contact
     controller: App\Controller\HomeController::show_contact
 contact_success :
-    path : /contact_success
+    path : home/contact_success
     controller : App\Controller\HomeController::contact_submit
 search :
   path : /home/search
@@ -22,3 +22,6 @@ register :
 login :
     path : /user/login
     controller : App\Controller\UsersController::login
+profile : 
+    path: /user/profile
+    controller : App\Controller\UsersController::profile

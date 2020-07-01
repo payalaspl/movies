@@ -68,12 +68,18 @@ class UsersController  extends AbstractController
     }
 
     /* EDIT USER PROFILE */
-    public function profile(Request $request){
+    public function profile(Request $request,FileUploader $fileUploader){
         $user = $this->getUser();
         $form = $this->createForm(EdituserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $usersFile = $form['image']->getData();
+                    
+            if ($usersFile) {
+                $FileName = $fileUploader->upload($usersFile);
+                $user->setImage($FileName);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'user.updated_successfully');

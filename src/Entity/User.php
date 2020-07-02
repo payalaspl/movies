@@ -44,6 +44,18 @@ class User implements UserInterface
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="users")
+     */
+    private $country;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="users")
+     */
+    private $state;
+
+    
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -134,5 +146,32 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getCountry(): ?country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?country $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getState(): ?state
+    {
+        return $this->state;
+    }
+
+    public function setState(?state $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+ 
+   
 
 }

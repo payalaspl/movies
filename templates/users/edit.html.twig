@@ -7,14 +7,17 @@
 	    </div>
 	{% endfor %}
     {{ form_start(form) }}
-	 {{ form_row(form.username) }}
-	  {{ form_row(form.email) }}
-     <img src="../uploads/{{user.image}}" width="50" height="50">
- {{ form_row(form.image) }}
-  {{ form_row(form.country) }}
-   {{ form_row(form.state) }}
-   <button class="btn btn-primary" type="submit">Submit</button>
-   
+		{{ form_row(form.username) }}
+		{{ form_row(form.email) }}
+	    <img src="../uploads/{{user.image}}" width="50" height="50">
+	 	{{ form_row(form.image) }}
+	  	{{ form_row(form.country) }}
+	    {{ form_row(form.state) }}
+   	{{ form_end(form) }}
+	{% block javascripts %}
+      {{ parent() }}
+      {{ encore_entry_script_tags('state') }}
+	{% endblock %}
     {% block page_contents %}{% endblock %}
 {% endblock %}
 

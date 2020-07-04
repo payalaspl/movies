@@ -11,7 +11,7 @@
             <div class="well">
                 <form action="{{ path('login') }}" method="post">
                     <fieldset>
-                        <legend><i class="fa fa-lock" aria-hidden="true"></i>login</legend>
+                        <legend><i class="fa fa-lock" aria-hidden="true"></i>{{ 'user.login'|trans }}</legend>
                         <div class="form-group">
                             <label for="username">Email</label>
                             <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>

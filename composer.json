@@ -17,12 +17,14 @@
         "symfony/security-bundle": "4.4.*",
         "symfony/security-core": "4.4.*",
         "symfony/swiftmailer-bundle": "^3.4",
+        "symfony/translation": "4.4.*",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/maker-bundle": "^1.19",
         "symfony/profiler-pack": "^1.0"
     },

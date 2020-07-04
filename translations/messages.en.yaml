@@ -1,0 +1,3 @@
+user:
+    # id is user.login
+    login: Login

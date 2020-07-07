@@ -40,26 +40,27 @@ class EdituserType extends AbstractType
 
         $builder
             ->add('username', TextType::class, [
-                'label' => 'username',           
+                'label' => 'label.username',         
             ])
             ->add('email', EmailType::class, [
-                'label' => 'email',
+                'label' => 'label.email',
                 'disabled' => true,
             ])
              ->add('image', FileType::class, [
                 'mapped'=>false,
                 'required'=> false,
-                ])
-              ->add('country', EntityType::class, [
+                'label' => 'label.image',
+            ])
+            ->add('country', EntityType::class, [
                 'class'       => Country::class,
                 'expanded' => false,
                 'multiple' => false,
                 'empty_data' => '',
                 'choice_label' => 'name',
-                'label' => 'Country',
-                'placeholder' => 'select Country'
+                'label' => 'label.country',
+                'placeholder' => 'select.country'
             ])
-            ->add('save', SubmitType::class, ['label' => 'Edit'])
+            ->add('save', SubmitType::class, ['label' => 'btn.submit'])
         ;
 
 
@@ -68,14 +69,14 @@ class EdituserType extends AbstractType
 
             $form->add('state', EntityType::class, [
                 'class' => 'App\Entity\State',
-                'placeholder' => 'select state',
+                'placeholder' => 'select.state',
                 'expanded' => false,
                 'multiple' => false,
                 'empty_data' => '',
                 'choice_label' => 'name',
-                'label' => 'State',
+                'label' => 'label.state',
                 'choices' => $state
-                ]);
+            ]);
         };
 
         $builder->addEventListener(

@@ -1,6 +1,7 @@
 user:
   login: Login
   register: Register
+  profile: Profile
 label:
   email : Email
   username : Username
@@ -8,8 +9,18 @@ label:
   repassword : Repeat Password
   country : Country
   state : State
+  image : Image
+  name: Name
+  message : message
+  phone: Phone
 select:
   country: Select Country
   state: Select State
 btn:
   submit : Submit
+  search : Serach
+about : about us
+contact : contact us
+privacy : privacy policy
+movie:
+  list : movie list

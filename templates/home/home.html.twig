@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Movie list</h1>
+    <h1>{{'movie.list'|trans}}</h1>
     <form action="{{ path('search') }}" method="get">
         <div class="form-group">
             <input name="search" class="form-control search-field" value="{{app.request.get('search')}}">
-            <input type="submit" value="search" class="btn btn-primary">
+            <input type="submit" value="{{'btn.search'|trans}}" class="btn btn-primary">
         </div>
     </form>
     {% for movie in paginator.results %}

@@ -1,6 +1,7 @@
 user:
   login: लॉग इन करें
   register: रजिस्टर करें
+  profile: प्रोफ़ाइल
 label:
   email : ईमेल
   username : उपयोगकर्ता नाम
@@ -8,8 +9,18 @@ label:
   repassword : पासवर्ड दोहराएं
   country : देश
   state : राज्य
+  image : छवि
+  name: नाम
+  message : संदेश
+  phone: फ़ोन
 select:
   country: देश चुनिए
   state: राज्य चुनें
 btn:
   submit : प्रस्तुत
+  search : पोस्ट जोड़ें
+about : हमारे बारे में
+contact : संपर्क करें
+privacy : गोपनीयता नीति
+movie:
+  list : फिल्म सूची

@@ -36,7 +36,9 @@ class UsersType extends AbstractType
                     'first_options'  => ['label' => 'label.password'],
                     'second_options' => ['label' => 'label.repassword'],
                 ])
-            ->add('image', FileType::class)
+            ->add('image', FileType::class,[
+                'label' => 'label.image',
+            ])
 
             ->add('country', EntityType::class, [
                 'class'       => Country::class,
@@ -62,7 +64,7 @@ class UsersType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'label.state',
                 'choices' => $state
-                ]);
+            ]);
         };
 
         $builder->addEventListener(

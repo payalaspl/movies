@@ -21,16 +21,20 @@ class UsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('username', TextType::class,[
+                'label' => 'label.username',
+            ])
+            ->add('email', EmailType::class,[
+                'label' => 'label.email',
+            ])
             ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
                     'options' => ['attr' => ['class' => 'password-field']],
                     'required' => false,
                     'empty_data' => '',
-                    'first_options'  => ['label' => 'Password'],
-                    'second_options' => ['label' => 'Repeat Password'],
+                    'first_options'  => ['label' => 'label.password'],
+                    'second_options' => ['label' => 'label.repassword'],
                 ])
             ->add('image', FileType::class)
 
@@ -40,8 +44,8 @@ class UsersType extends AbstractType
                 'multiple' => false,
                 'empty_data' => '',
                 'choice_label' => 'name',
-                'label' => 'Country',
-                'placeholder' => 'select Country'
+                'label' => 'label.country',
+                'placeholder' => 'select.country'
             ])
         ;
 
@@ -51,12 +55,12 @@ class UsersType extends AbstractType
 
             $form->add('state', EntityType::class, [
                 'class' => 'App\Entity\State',
-                'placeholder' => 'select state',
+                'placeholder' => 'select.state',
                 'expanded' => false,
                 'multiple' => false,
                 'empty_data' => '',
                 'choice_label' => 'name',
-                'label' => 'State',
+                'label' => 'label.state',
                 'choices' => $state
                 ]);
         };

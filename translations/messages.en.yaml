@@ -1,3 +1,15 @@
 user:
-    # id is user.login
-    login: Login
+  login: Login
+  register: Register
+label:
+  email : Email
+  username : Username
+  password : Password
+  repassword : Repeat Password
+  country : Country
+  state : State
+select:
+  country: Select Country
+  state: Select State
+btn:
+  submit : Submit

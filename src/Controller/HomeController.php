@@ -18,7 +18,6 @@ class HomeController  extends AbstractController
     public function index(Request $request,int $page,MovieRepository $movies)
     {
         $search = null;
-
         if ($request->query->has('search')) {
              $search = $request->query->get('search');
         }

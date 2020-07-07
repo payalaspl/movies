@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <h1>Register</h1>
+    <h1>{{ 'user.register'|trans }}</h1>
     {% for message in app.flashes('msg') %}
 	    <div class="flash-notice">
 	        {{ message }}
@@ -14,7 +14,7 @@
 	    {{ form_row(form.image) }}
 	    {{ form_row(form.country) }}
 	    {{ form_row(form.state) }}
-   		<button class="btn btn-primary" type="submit">Submit</button>
+   		<button class="btn btn-primary" type="submit">{{ 'btn.submit'|trans }}</button>
 	{{ form_end(form) }}
 	{% block javascripts %}
       {{ parent() }}

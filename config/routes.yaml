@@ -1,27 +1,57 @@
+
 index:
-    path: /{page}
+    path: /{_locale}/{page}
     controller: App\Controller\HomeController::index
     methods : "GET"
-    defaults : {"page": "1"}
+    defaults : {"page": "1",_locale : 'en'}
+    requirements:
+        _locale: 'en|hi'
+  
 home_show:
-    path : home/{slug}
+    path : /{_locale}/home/{slug}
     controller: App\Controller\HomeController::show
-    requirements: {"slug": "about|privacy"}
+    requirements: {"slug": "about|privacy", _locale: 'en|hi'}
+    defaults : 
+        _locale : 'en'
 contact :
-    path : home/contact
+    path : /{_locale}/home/contact
     controller: App\Controller\HomeController::show_contact
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
 contact_success :
-    path : home/contact_success
+    path : /{_locale}/home/contact_success
     controller : App\Controller\HomeController::contact_submit
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
 search :
-  path : /home/search
-  controller : App\Controller\HomeController::search
+    path : /{_locale}/home/search
+    controller : App\Controller\HomeController::search
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
 register :
-    path : /user/register
+    path : /{_locale}/user/register
     controller : App\Controller\UsersController::register
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
 login :
-    path : /user/login
+    path : /{_locale}/user/login
     controller : App\Controller\UsersController::login
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
 profile : 
-    path: /user/profile
+    path: /{_locale}/user/profile
     controller : App\Controller\UsersController::profile
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'

@@ -1,0 +1,15 @@
+user:
+  login: लॉग इन करें
+  register: रजिस्टर करें
+label:
+  email : ईमेल
+  username : उपयोगकर्ता नाम
+  password : कुंजिका
+  repassword : पासवर्ड दोहराएं
+  country : देश
+  state : राज्य
+select:
+  country: देश चुनिए
+  state: राज्य चुनें
+btn:
+  submit : प्रस्तुत

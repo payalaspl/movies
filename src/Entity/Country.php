@@ -6,7 +6,7 @@ use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 /**
  * @ORM\Entity(repositoryClass=CountryRepository::class)
  */
@@ -20,6 +20,7 @@ class Country
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -33,8 +34,13 @@ class Country
      * @ORM\OneToMany(targetEntity=State::class, mappedBy="country")
      */
     private $states;
-
-   
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     * and it is not necessary because globally locale can be set in listener
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -120,6 +126,9 @@ class Country
 
         return $this;
     }
-
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
   
 }

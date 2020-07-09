@@ -1,10 +1,6 @@
 <?php
 
-// file: src/Acme/DemoBundle/Listener/DoctrineExtensionListener.php
-
 namespace App\EventSubscriber;
-
-
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -24,8 +20,8 @@ class DoctrineExtensionListener implements ContainerAwareInterface
 
     public function onLateKernelRequest(GetResponseEvent $event)
     {
-        $translatable = $this->container->get('gedmo.listener.translatable');
-        $translatable->setTranslatableLocale($event->getRequest()->getLocale());
+        // $translatable = $this->container->get('gedmo.listener.translatable');
+        // $translatable->setTranslatableLocale($event->getRequest()->getLocale());
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -37,3 +33,4 @@ class DoctrineExtensionListener implements ContainerAwareInterface
         }
     }
 }
+?>

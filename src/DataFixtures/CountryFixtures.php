@@ -21,18 +21,13 @@ class CountryFixtures extends Fixture
         // $tag2 = new Country();
         // $tag2->setName("US");
         $repository = $manager->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-// it works for ODM also
-$country = new Country;
-$country->setName('My article en');
+        // it works for ODM also
+        $country = new Country;
+        $country->setName('My article en');
 
+        $repository->translate($country, 'name', 'hi', 'my article hi');
 
-$repository->translate($country, 'name', 'hi', 'my article hi')
- 
-;
-
-$manager->persist($country);
-
-
+        $manager->persist($country);
        
         //$manager->persist($tag2);
         $this->addReference('country-1', $country);

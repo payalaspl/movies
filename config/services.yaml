@@ -54,4 +54,5 @@ services:
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
             - [ setDefaultLocale, [ en ] ]
-            - [ setTranslationFallback, [ false ] ]
+            - [ setTranslatableLocale, [ en ] ]
+            - [ setTranslationFallback, [ true ] ]

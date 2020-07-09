@@ -17,9 +17,9 @@ class UsersController  extends AbstractController
 {
     /* REGISTER USER */
     public function register(Request $request,FileUploader $fileUploader,UserRepository $users,UserPasswordEncoderInterface $encoder){
-
+        $locale = $request->getLocale();
     	$user = new User();
-        $form = $this->createForm(UsersType::class, $user);
+        $form = $this->createForm(UsersType::class, $user, array('locale' => $locale));
 
     
         $form->handleRequest($request);

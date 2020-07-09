@@ -18,7 +18,33 @@ class StateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, State::class);
     }
+    public function selectState($locale,$country){
+        $qb =  $this->createQueryBuilder('s')
+            ->andWhere('s.country = :val')
+            ->setParameter('val', $country)
+            ->orderBy('s.id', 'ASC')
+        ;
 
+        $query = $qb->getQuery();
+
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
+
+         return $query->getResult();
+    }
     // /**
     //  * @return State[] Returns an array of State objects
     //  */

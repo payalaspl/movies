@@ -42,11 +42,6 @@ class HomeController  extends AbstractController
     public function show($slug)
     {
         if ($slug == 'about') {
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $article = $entityManager->find('App\Entity\Country', 29 /*article id*/);
-            // $repository = $entityManager->getRepository('Gedmo\Translatable\Entity\Translation');
-            // $translations = $repository->findTranslations($article);
-            // print_r($translations);exit();
             return $this->render('home/about.html.twig');
         }else{
              return $this->render('home/privacy.html.twig');

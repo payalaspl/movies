@@ -1,6 +1,13 @@
 <?php
 namespace App\Form;
 
+use App\Entity\Country;
+use App\Entity\State;
+use App\Repository\CountryRepository;
+use App\Repository\StateRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -10,16 +17,19 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use App\Entity\Country;
-use App\Entity\State;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UsersType extends AbstractType
 {
+   
+    public function __construct(CountryRepository $cr,StateRepository $sr){
+        $this->cr = $cr;
+        $this->sr = $sr;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $locale = $options["locale"];
         $builder
             ->add('username', TextType::class,[
                 'label' => 'label.username',
@@ -47,13 +57,14 @@ class UsersType extends AbstractType
                 'empty_data' => '',
                 'choice_label' => 'name',
                 'label' => 'label.country',
-                'placeholder' => 'select.country'
+                'placeholder' => 'select.country',
+                'choices' => $this->cr->selectCountry($locale),
             ])
         ;
 
 
         $formModifier = function (FormInterface $form, Country $country = null) {
-            $state = null === $country ? [] : $country->getStates();
+            //$state = null === $country ? [] : $country->getStates();
 
             $form->add('state', EntityType::class, [
                 'class' => 'App\Entity\State',
@@ -63,14 +74,14 @@ class UsersType extends AbstractType
                 'empty_data' => '',
                 'choice_label' => 'name',
                 'label' => 'label.state',
-                'choices' => $state
+                'choices' => $this->sr->selectState('hi',$country),
             ]);
         };
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
-                // this would be your entity, i.e. SportMeetup
+               
                 $data = $event->getData();
 
                 $formModifier($event->getForm(), $data->getCountry());
@@ -80,17 +91,19 @@ class UsersType extends AbstractType
         $builder->get('country')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
-                // It's important here to fetch $event->getForm()->getData(), as
-                // $event->getData() will get you the client data (that is, the ID)
+                
                 $country = $event->getForm()->getData();
 
-                // since we've added the listener to the child, we'll have to pass on
-                // the parent to the callback functions!
                 $formModifier($event->getForm()->getParent(), $country);
             }
         );
         
     }
-
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'locale' => 'en'
+        ]);
+    }
+   
 }
 ?>

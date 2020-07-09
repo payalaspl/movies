@@ -9,20 +9,20 @@ class StateFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // $state = new State();
-        // $state->setName("gujrat");
-        // $state->setCountry($this->getReference('country-1'));
-        // $manager->persist($state);
-        // $manager->flush();
-
         $repository = $manager->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         // it works for ODM also
         $state = new State;
         $state->setName("gujrat");
         $state->setCountry($this->getReference('country-1'));
-        $repository->translate($state, 'name', 'hi', 'gujrat hi');
-
+        $repository->translate($state, 'name', 'hi', 'गुजरात');
         $manager->persist($state);
+
+        $state1 = new State;
+        $state1->setName("California");
+        $state1->setCountry($this->getReference('country-2'));
+        $repository->translate($state1, 'name', 'hi', 'कैलिफोर्निया');
+        $manager->persist($state1);
+        
 
         $manager->flush();
     }

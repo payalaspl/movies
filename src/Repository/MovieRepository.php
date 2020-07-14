@@ -20,7 +20,7 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function findLatest(int $page = 1,$search = null): Paginator
+    public function findLatest(int $page = 1,$search = null,$local): Paginator
     {
         //echo ($search);exit();
         $qb = $this->createQueryBuilder('m')
@@ -30,17 +30,36 @@ class MovieRepository extends ServiceEntityRepository
                ->setParameter('search1', '%'.$search.'%');
         }
        //echo ($qb);exit();
-        return (new Paginator($qb))->paginate($page);
+        return (new Paginator($qb))->paginate($page,$local);
     }
     
-    public function findSearch($search){
-         $queryBuilder = $this->createQueryBuilder('m');
-         return $queryBuilder
+    public function findSearch($search,$locale){
+        $queryBuilder = $this->createQueryBuilder('m');
+        $query = $queryBuilder
             ->where('m.name LIKE :search1')
             ->setParameter('search1', '%'.$search.'%')
-            ->orderBy('m.id', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('m.id', 'DESC');
+
+        $query = $query->getQuery();
+
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
+
+        return $query->getResult();
+
     }
     // /**
     //  * @return Movie[] Returns an array of Movie objects

@@ -33,7 +33,7 @@ class Paginator
         $this->pageSize = $pageSize;
     }
 
-    public function paginate(int $page = 1): self
+    public function paginate(int $page = 1,$local): self
     {
         $this->currentPage = max(1, $page);
         $firstResult = ($this->currentPage - 1) * $this->pageSize;
@@ -43,6 +43,21 @@ class Paginator
             ->setMaxResults($this->pageSize)
             ->getQuery();
 
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $local
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
         if (0 === \count($this->queryBuilder->getDQLPart('join'))) {
             $query->setHint(CountWalker::HINT_DISTINCT, false);
         }

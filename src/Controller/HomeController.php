@@ -21,18 +21,18 @@ class HomeController  extends AbstractController
         if ($request->query->has('search')) {
              $search = $request->query->get('search');
         }
-
-        $latestMovie = $movies->findLatest($page,$search);
+        $local = $request->getLocale();
+        $latestMovie = $movies->findLatest($page,$search,$local);
 
         return $this->render('home/home.html.twig',array('paginator' => $latestMovie));
     }
 
 
     public function search(Request $request,MovieRepository $movies){
-
+        $local = $request->getLocale();
         if ($request->query->has('search')) {
             $search = $request->query->get('search');
-            $latestMovie = $movies->findSearch($search);
+            $latestMovie = $movies->findSearch($search,$local);
             
             return $this->render('home/search.html.twig',array('movies' => $latestMovie));
         }

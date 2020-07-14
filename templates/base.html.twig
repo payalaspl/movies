@@ -34,15 +34,23 @@
                                 <li  class="nav-item"><a class="nav-link" href="{{path('register')}}">{{ 'user.register'|trans }}</a></li>
                                 <li  class="nav-item"><a class="nav-link" href="{{path('login')}}">{{ 'user.login'|trans }}</a></li>
                                 {% endif %}
-
-                               <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="language_switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></a>
+                            </ul>
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown" style="float: right">
+                                    <!-- <a class="nav-link dropdown-toggle" id="language_switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></a> -->
+                                    {% if app.request.locale == 'hi' %}
+                                        <a class="nav-link dropdown-toggle" href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'hi'})) }}" id="language_switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fa fa-globe"></i> Hindi</a>
+                                    {% else %}
+                                        <a class="nav-link dropdown-toggle" href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}" id="language_switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i> English</a>
+                                    {% endif %}
                                     <div class="dropdown-menu" aria-labelledby="language_switcher">
+                                        {% if app.request.locale == 'hi' %}
+                                            <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}"><span class="flag flag-us"> </span>  English</a>
+                                        {% else %}
                                         <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'hi'})) }}"><span class="flag flag-ru"> </span>  Hindi</a>
-                                        <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}"><span class="flag flag-us"> </span>  English</a>
+                                       {% endif %}
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
                     </nav>

@@ -20,16 +20,12 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function findLatest(int $page = 1,$search = null,$local): Paginator
+    public function findLatest(int $page = 1,$local): Paginator
     {
-        //echo ($search);exit();
+        
         $qb = $this->createQueryBuilder('m')
                    ->orderBy('m.id', 'DESC');
-        if (null !== $search) {
-            $qb->where('m.name LIKE :search1')
-               ->setParameter('search1', '%'.$search.'%');
-        }
-       //echo ($qb);exit();
+      
         return (new Paginator($qb))->paginate($page,$local);
     }
     

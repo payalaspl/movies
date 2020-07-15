@@ -23,4 +23,5 @@ about : about us
 contact : contact us
 privacy : privacy policy
 movie:
+  movie: Movie
   list : movie list

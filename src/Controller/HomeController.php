@@ -17,12 +17,9 @@ class HomeController  extends AbstractController
     
     public function index(Request $request,int $page,MovieRepository $movies)
     {
-        $search = null;
-        if ($request->query->has('search')) {
-             $search = $request->query->get('search');
-        }
+       
         $local = $request->getLocale();
-        $latestMovie = $movies->findLatest($page,$search,$local);
+        $latestMovie = $movies->findLatest($page,$local);
 
         return $this->render('home/home.html.twig',array('paginator' => $latestMovie));
     }

@@ -22,14 +22,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UsersType extends AbstractType
 {
-   
+    
     public function __construct(CountryRepository $cr,StateRepository $sr){
         $this->cr = $cr;
         $this->sr = $sr;
+        $this->locale = 'en';
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $locale = $options["locale"];
+        $this->locale = $options["locale"];
         $builder
             ->add('username', TextType::class,[
                 'label' => 'label.username',
@@ -58,14 +59,14 @@ class UsersType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'label.country',
                 'placeholder' => 'select.country',
-                'choices' => $this->cr->selectCountry($locale),
+                'choices' => $this->cr->selectCountry($this->locale),
             ])
         ;
 
 
         $formModifier = function (FormInterface $form, Country $country = null) {
             //$state = null === $country ? [] : $country->getStates();
-
+            
             $form->add('state', EntityType::class, [
                 'class' => 'App\Entity\State',
                 'placeholder' => 'select.state',
@@ -74,7 +75,7 @@ class UsersType extends AbstractType
                 'empty_data' => '',
                 'choice_label' => 'name',
                 'label' => 'label.state',
-                'choices' => $this->sr->selectState('hi',$country),
+                'choices' => $this->sr->selectState($this->locale,$country),
             ]);
         };
 

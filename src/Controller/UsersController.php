@@ -9,6 +9,7 @@ use App\Service\FileUploader;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -44,7 +45,7 @@ class UsersController  extends AbstractController
 	                $user->setUsername($data->getUsername());
 	                $user->setPassword($encoder->encodePassword($user, $data->getPassword()));
 	                $user->setEmail($data->getEmail());
-                    $user->setRoles(array("ROLE_USER"));
+                    $user->setRoles(array("ROLE_ADMIN"));
 	                $entityManager = $this->getDoctrine()->getManager();
 	                $entityManager->persist($user);
 	                $entityManager->flush();
@@ -60,8 +61,14 @@ class UsersController  extends AbstractController
     }
 
     /* uSER LOGIN */
-    public function login(Request $request,  AuthenticationUtils $helper){
+    public function login(Request $request, Security $security, AuthenticationUtils $helper){
 
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('profile');
+        }
+        if ($security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
         return $this->render('users/login.html.twig', [
             'last_username' => $helper->getLastUsername(),
             'error' => $helper->getLastAuthenticationError(),

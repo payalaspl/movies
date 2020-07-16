@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block content %}
+
+{% block main %}
     <h1>{{ 'user.register'|trans }}</h1>
     {% for message in app.flashes('msg') %}
 	    <div class="flash-notice">
@@ -20,7 +21,6 @@
       {{ parent() }}
       {{ encore_entry_script_tags('state') }}
 	{% endblock %}
-    {% block page_contents %}{% endblock %}
 {% endblock %}
 
 

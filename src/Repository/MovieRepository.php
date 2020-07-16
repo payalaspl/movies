@@ -57,6 +57,32 @@ class MovieRepository extends ServiceEntityRepository
         return $query->getResult();
 
     }
+    public function getMovieById($id,$locale){
+        $queryBuilder = $this->createQueryBuilder('m');
+        $query = $queryBuilder
+            ->where('m.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $query->getQuery();
+
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
+
+        return $query->getResult();
+    }
     // /**
     //  * @return Movie[] Returns an array of Movie objects
     //  */

@@ -2,6 +2,7 @@ user:
   login: Login
   register: Register
   profile: Profile
+  admin : Admin
 label:
   email : Email
   username : Username
@@ -11,17 +12,23 @@ label:
   state : State
   image : Image
   name: Name
-  message : message
+  message : Message
   phone: Phone
+  description : Description
+  action: Action
 select:
   country: Select Country
   state: Select State
 btn:
   submit : Submit
   search : Serach
-about : about us
-contact : contact us
-privacy : privacy policy
+  add_movie : Add movie
+  delete : Delete
+  edit : Edit
+about : About Us
+contact : Contact Us
+privacy : Privacy Policy
 movie:
   movie: Movie
-  list : movie list
+  list : Movie List
+  created_successfully : created successfully

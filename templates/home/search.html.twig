@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block main %}
     <h1>Movie list</h1>
-   
     {% for movie in movies %}
     	<h4>{{movie.name}}</h4>
     	<p>{{movie.decription}}</p>

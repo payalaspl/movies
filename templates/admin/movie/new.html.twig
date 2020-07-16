@@ -1,0 +1,27 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block main %}
+   	<form action="{{ path('addmovie') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <label for="username">{{ 'label.name'|trans }}</label>
+                <input required type="text" id="name" name="name"  class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ 'label.description'|trans }}</label>
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="name_hi">{{ 'label.name'|trans }}</label>
+                <input required type="text" id="name_hi" name="name_hi"  class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="description_hi">{{ 'label.description'|trans }}</label>
+                <textarea class="form-control" name="description_hi"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>{{'btn.submit'|trans}}
+            </button>
+        </fieldset>
+    </form>
+{% endblock %}

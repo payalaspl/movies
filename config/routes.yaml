@@ -59,3 +59,24 @@ admin :
     requirements:
         _locale: 'en|hi'
     defaults : {"page": "1",_locale : 'en'}
+addmovie :
+    path: /{_locale}/admin/addmovie
+    controller : App\Controller\Admin\MovieController::new
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+editmovie : 
+    path: /{_locale}/admin/editmovie/{id}
+    controller : App\Controller\Admin\MovieController::edit
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+deletemovie : 
+    path: /{_locale}/admin/deletemovie/{id}
+    controller : App\Controller\Admin\MovieController::delete
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'

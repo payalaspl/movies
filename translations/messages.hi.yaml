@@ -2,6 +2,7 @@ user:
   login: लॉग इन करें
   register: रजिस्टर करें
   profile: प्रोफ़ाइल
+  admin : व्यवस्थापक
 label:
   email : ईमेल
   username : उपयोगकर्ता नाम
@@ -13,15 +14,21 @@ label:
   name: नाम
   message : संदेश
   phone: फ़ोन
+  description : विवरण
+  action: कार्य
 select:
   country: देश चुनिए
   state: राज्य चुनें
 btn:
   submit : प्रस्तुत
   search : पोस्ट जोड़ें
+  add_movie : फिल्म जोड़ें
+  delete : हटाएं
+  edit : संपादित करें
 about : हमारे बारे में
 contact : संपर्क करें
 privacy : गोपनीयता नीति
 movie:
   movie: चलचित्र
   list : फिल्म सूची
+  created_successfully : सफलतापूर्वक बनाया गया

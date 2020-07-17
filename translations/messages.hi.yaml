@@ -16,6 +16,8 @@ label:
   phone: फ़ोन
   description : विवरण
   action: कार्य
+  name_hi: नाम (हिंदी)
+  description_hi : विवरण (हिंदी)
 select:
   country: देश चुनिए
   state: राज्य चुनें

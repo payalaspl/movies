@@ -16,6 +16,8 @@ label:
   phone: Phone
   description : Description
   action: Action
+  name_hi: Name (hindi)
+  description_hi : Description (hindi)
 select:
   country: Select Country
   state: Select State

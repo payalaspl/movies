@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class MovieController  extends AbstractController
+class StateController  extends AbstractController
 {
 
 
@@ -44,7 +44,7 @@ class MovieController  extends AbstractController
             $em->persist($movie);
             $em->flush();
 
-            $this->addFlash('success', 'msg.created_successfully');
+            $this->addFlash('success', 'movie.created_successfully');
             return $this->redirectToRoute('admin');
         }
 
@@ -73,7 +73,7 @@ class MovieController  extends AbstractController
 			$em->persist($movie);
 			$em->flush();
 
-            $this->addFlash('success', 'msg.updated_successfully');
+            $this->addFlash('success', 'movie.updated_successfully');
 
             return $this->redirectToRoute('editmovie', ['id' => $movie_data[0]->getId()]);
         }
@@ -91,7 +91,7 @@ class MovieController  extends AbstractController
         $em->remove($movie);
         $em->flush();
 
-        $this->addFlash('success', 'msg.deleted_successfully');
+        $this->addFlash('success', 'movie.deleted_successfully');
 
         return $this->redirectToRoute('admin');
 	}

@@ -27,10 +27,23 @@ btn:
   add_movie : फिल्म जोड़ें
   delete : हटाएं
   edit : संपादित करें
+  add_country : देश जोड़ें
+  add_state : राज्य जोड़ें
+  add_category : कैटेगरी जोड़े
 about : हमारे बारे में
 contact : संपर्क करें
 privacy : गोपनीयता नीति
 movie:
   movie: चलचित्र
   list : फिल्म सूची
+  movie_category : मूवी श्रेणी
+msg:
   created_successfully : सफलतापूर्वक बनाया गया
+  updated_successfully : अद्यतन सफलतापूर्ण हो गया
+  deleted_successfully : सफलतापूर्वक मिटाया गया
+country:
+  list : देश की सूची
+state:
+  list : राज्य सूची
+category:
+  list : श्रेणी सूची

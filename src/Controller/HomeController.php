@@ -66,7 +66,7 @@ class HomeController  extends AbstractController
                 ;
                 $mailer->send($message);
 
-                $this->addFlash('notice','Your changes were saved!');
+                $this->addFlash('success','msg.created_successfully');
                 return $this->redirectToRoute('contact_success');
             }
         }

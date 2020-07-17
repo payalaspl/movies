@@ -2,5 +2,14 @@
 {% block header_navigation_links %}
     <li class="nav-item">
         <a class="nav-link" href="{{ path('admin') }}">{{ 'movie.movie'|trans }}</a>
+    </li> 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_category') }}">{{ 'movie.movie_category'|trans }}</a>
+    </li> 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_country') }}">{{ 'label.country'|trans }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_state') }}">{{ 'label.state'|trans }}</a>
     </li>   
 {% endblock %}

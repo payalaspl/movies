@@ -66,11 +66,22 @@
                 {% block body %}
                 <div class="row">
                     <div id="main" class="col-sm-12">
-                        {% for message in app.flashes('notice') %}
-                            <div class="flash-notice">
-                                {{ message }}
+                       {% if app.request.hasPreviousSession %}
+                            <div class="messages">
+                                {% for type, messages in app.flashes %}
+                                    {% for message in messages %}
+                                        {# Bootstrap alert, see https://getbootstrap.com/docs/3.4/components/#alerts #}
+                                        <div class="alert alert-dismissible alert-{{ type }} " role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                            {{ message|trans }}
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                        {% endif %}
                         {% block main %}{% endblock %}
                     </div>
                 </div>

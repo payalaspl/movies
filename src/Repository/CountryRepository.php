@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Country;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Pagination\Paginator;
 
 /**
  * @method Country|null find($id, $lockMode = null, $lockVersion = null)
@@ -41,6 +42,40 @@ class CountryRepository extends ServiceEntityRepository
         );
 
          return $query->getResult();
+    }
+    public function findLatest(int $page = 1,$locale): Paginator
+    {
+        
+        $qb = $this->createQueryBuilder('c')
+                   ->orderBy('c.id', 'DESC');
+      
+        return (new Paginator($qb))->paginate($page,$locale);
+    }
+    public function getCountryById($id,$locale){
+        $queryBuilder = $this->createQueryBuilder('c');
+        $query = $queryBuilder
+            ->where('c.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $query->getQuery();
+
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
+
+        return $query->getResult();
     }
     // /**
     //  * @return Country[] Returns an array of Country objects

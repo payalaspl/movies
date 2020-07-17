@@ -80,3 +80,42 @@ deletemovie :
         _locale: 'en|hi'
     defaults : 
         _locale : 'en'
+admin_category :
+    path: /{_locale}/admin/category/{page}
+    controller : App\Controller\Admin\CategoryController::list
+    requirements:
+        _locale: 'en|hi'
+    defaults : {"page": "1",_locale : 'en'}
+admin_country :
+    path: /{_locale}/admin/country/{page}
+    controller : App\Controller\Admin\CountryController::list
+    requirements:
+        _locale: 'en|hi'
+    defaults : {"page": "1",_locale : 'en'}
+addcountry :
+    path: /{_locale}/admin/addcountry
+    controller : App\Controller\Admin\CountryController::new
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+editcountry : 
+    path: /{_locale}/admin/editcountry/{id}
+    controller : App\Controller\Admin\CountryController::edit
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+deletecountry : 
+    path: /{_locale}/admin/deletecountry/{id}
+    controller : App\Controller\Admin\CountryController::delete
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+admin_state :
+    path: /{_locale}/admin/state/{page}
+    controller : App\Controller\Admin\StateController::list
+    requirements:
+        _locale: 'en|hi'
+    defaults : {"page": "1",_locale : 'en'}

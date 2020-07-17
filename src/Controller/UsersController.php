@@ -32,7 +32,7 @@ class UsersController  extends AbstractController
             	$checkemail = $users->checkEmail($data->getEmail());
             	
                 if(count($checkemail) != '0'){
-            		$this->addFlash('msg','Already Exit Email');
+            		$this->addFlash('danger','Already Exit Email');
             	
                 }else{	
                     $usersFile = $form['image']->getData();
@@ -91,7 +91,7 @@ class UsersController  extends AbstractController
             }
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'user.updated_successfully');
+            $this->addFlash('success', 'msg.updated_successfully');
 
             return $this->redirectToRoute('profile');
         }

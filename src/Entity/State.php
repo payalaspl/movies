@@ -32,7 +32,7 @@ class State
     private $users;
 
     /**
-     * @ORM\ManyToOne(targetEntity=country::class, inversedBy="states")
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="states")
      */
     private $country;
 

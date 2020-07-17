@@ -119,3 +119,24 @@ admin_state :
     requirements:
         _locale: 'en|hi'
     defaults : {"page": "1",_locale : 'en'}
+addstate :
+    path: /{_locale}/admin/addstate
+    controller : App\Controller\Admin\StateController::new
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+editstate : 
+    path: /{_locale}/admin/editstate/{id}
+    controller : App\Controller\Admin\StateController::edit
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'
+deletestate : 
+    path: /{_locale}/admin/deletestate/{id}
+    controller : App\Controller\Admin\StateController::delete
+    requirements:
+        _locale: 'en|hi'
+    defaults : 
+        _locale : 'en'

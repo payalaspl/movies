@@ -3,9 +3,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Movie;
-use App\Form\MovieType;
-use App\Repository\MovieRepository;
+use App\Entity\State;
+use App\Form\StateType;
+use App\Repository\StateRepository;
+use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,86 +16,83 @@ class StateController  extends AbstractController
 {
 
 
-	public function list(Request $request,int $page,MovieRepository $movies){
-
-		$local = $request->getLocale();
-
-        $latestMovie = $movies->findLatest($page,$local);
-
-        return $this->render('admin/movie/movie.html.twig', array('paginator' => $latestMovie));
-	}
-
-
-
-	public function new(Request $request){
-		$movie = new Movie();
-        
-        if ($request->getMethod() == 'POST') {
-
-        	$em = $this->getDoctrine()->getManager();
-
-        	$repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-
-        	$movie->setName($request->request->get('name'));
-	        $movie->setDecription($request->request->get('description'));
-            $repository->translate($movie, 'name', 'hi', $request->request->get('name_hi'));
-            $repository->translate($movie, 'decription', 'hi',$request->request->get('description_hi'));
-
-           
-            $em->persist($movie);
-            $em->flush();
-
-            $this->addFlash('success', 'movie.created_successfully');
-            return $this->redirectToRoute('admin');
-        }
-
-        return $this->render('admin/movie/new.html.twig');
-	}
-
-
-	public function edit(Request $request,$id,MovieRepository $movies){
+	public function list(Request $request,int $page,StateRepository $state){
 
 		$locale = $request->getLocale();
 
-		$movie_data = $movies->getMovieById($id,$locale);
-		
-		$form = $this->createForm(MovieType::class, $movie_data[0]);
+        $latestState = $state->findLatest($page,$locale);
+
+        return $this->render('admin/state/state.html.twig', array('paginator' => $latestState));
+	}
+
+
+    public function new(Request $request,CountryRepository $country){
+        $state = new State();
+        $locale = $request->getLocale();
+        if ($request->getMethod() == 'POST') {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+            $state->setName($request->request->get('name'));
+            $state->setCountry($request->request->get('country'));
+            $repository->translate($state, 'name', 'hi', $request->request->get('name_hi'));
+            $em->persist($state);
+            $em->flush();
+
+            $this->addFlash('success', 'msg.created_successfully');
+            return $this->redirectToRoute('admin_state');
+        }
+
+        $country = $country->selectCountry($locale);    
+        return $this->render('admin/state/new.html.twig',array('country' => $country));
+    }
+
+
+    public function edit(Request $request,$id,StateRepository $state){
+
+        $locale = $request->getLocale();
+
+        $state_data = $state->getStateById($id,$locale);
+        
+        $form = $this->createForm(StateType::class, $state_data[0],array('locale' => $locale));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
           
-    		$data = $form->getData();
+            $data = $form->getData();
 
-        	$em = $this->getDoctrine()->getManager();
-        	$movie = $em->find('App\Entity\Movie', $id);
-			$movie->setName($data->getName());
-			$movie->setDecription($data->getDecription());
-			$movie->setTranslatableLocale($locale); // change locale
-			$em->persist($movie);
-			$em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $country = $em->find('App\Entity\State', $id);
+            $country->setName($data->getName());
+            $country->setTranslatableLocale($locale); // change locale
+            $em->persist($country);
+            $em->flush();
 
-            $this->addFlash('success', 'movie.updated_successfully');
+            $this->addFlash('success', 'msg.updated_successfully');
 
-            return $this->redirectToRoute('editmovie', ['id' => $movie_data[0]->getId()]);
+            return $this->redirectToRoute('admin_state');
         }
 
-        return $this->render('admin/movie/edit.html.twig', [
-            'movie' => $movie_data[0],
+        return $this->render('admin/country/edit.html.twig', [
+            'state' => $state_data[0],
             'form' => $form->createView(),
         ]);
-	}
+    }
 
 
-	public function delete(Request $request, Movie $movie){
+    public function delete(Request $request, State $state){
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($movie);
+        $em->remove($state);
         $em->flush();
 
-        $this->addFlash('success', 'movie.deleted_successfully');
+        $this->addFlash('success', 'msg.deleted_successfully');
 
-        return $this->redirectToRoute('admin');
-	}
+        return $this->redirectToRoute('admin_state');
+    }
+
 
 }
 ?>

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Pagination\Paginator;
 
 /**
  * @method State|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,6 +45,42 @@ class StateRepository extends ServiceEntityRepository
         );
 
          return $query->getResult();
+    }
+    public function findLatest(int $page = 1,$locale): Paginator
+    {
+        
+        $qb = $this->createQueryBuilder('s')
+                ->select('s.id,s.name,c.name as country_name')
+                ->leftJoin('s.country', 'c','c.id = s.country')
+                ->orderBy('s.id', 'DESC');
+      
+        return (new Paginator($qb))->paginate($page,$locale);
+    }
+    public function getStateById($id,$locale){
+        $queryBuilder = $this->createQueryBuilder('s');
+        $query = $queryBuilder
+            ->where('s.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $query->getQuery();
+
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        // force Gedmo Translatable to not use current locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_FALLBACK,
+            1
+        );
+
+        return $query->getResult();
     }
     // /**
     //  * @return State[] Returns an array of State objects

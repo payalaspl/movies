@@ -3,15 +3,9 @@
 {% block main %}
    	<form action="{{ path('addstate') }}" method="post">
         <fieldset>
-        	<div class="form-group">
-                <label for="country">{{ 'label.country'|trans }}</label>
-                <select class="form-control" name="country" id="country" required>
-                	<option value="">{{'select.country'|trans}}</option>
-                	{% for c in country %}
-                		<option value="{{c.id}}">{{c.name}}</option>
-                	{% endfor %}
-                </select>
-            </div>
+        	
+                {{ form_row(form.country) }}
+            
             <div class="form-group">
                 <label for="name">{{ 'label.name'|trans }}</label>
                 <input required type="text" id="name" name="name"  class="form-control"/>

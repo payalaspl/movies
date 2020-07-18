@@ -29,14 +29,18 @@ class StateController  extends AbstractController
     public function new(Request $request,CountryRepository $country){
         $state = new State();
         $locale = $request->getLocale();
-        if ($request->getMethod() == 'POST') {
 
+        $form = $this->createForm(StateType::class, $state,array('locale' => $locale));
+        $form->handleRequest($request);
+
+        if ($request->getMethod() == 'POST') {
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
             $repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-
+            //print_r($request->request->get('country'));exit();
             $state->setName($request->request->get('name'));
-            $state->setCountry($request->request->get('country'));
+            $state->setCountry($data->getCountry());
             $repository->translate($state, 'name', 'hi', $request->request->get('name_hi'));
             $em->persist($state);
             $em->flush();
@@ -46,7 +50,7 @@ class StateController  extends AbstractController
         }
 
         $country = $country->selectCountry($locale);    
-        return $this->render('admin/state/new.html.twig',array('country' => $country));
+        return $this->render('admin/state/new.html.twig',array('form' => $form->createView()));
     }
 
 
